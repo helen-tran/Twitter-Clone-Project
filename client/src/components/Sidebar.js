@@ -75,10 +75,6 @@ color: black;
 }
 `;
 
-const PageName = styled.p`
-padding-left:15px;
-`;
-
 const Logo = styled.img`
 width:50px;
 
