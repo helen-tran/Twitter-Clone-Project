@@ -8,15 +8,14 @@ export const CurrentUserProvider = ({ children }) => {
     
 useEffect(()=>{
 fetch('/api/me/profile',{
-    // headers:{
-    //     'Accept': 'application.json'
-    // }
+    headers:{
+        'Accept': 'application.json'
+    }
 })
 .then(res =>{
     return res.json()
 })
 .then(data =>{
-    console.log(data);
     setStatus("idle");
     setCurrentUser(data.profile.handle);
 })

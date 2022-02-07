@@ -11,5 +11,7 @@ export default createGlobalStyle`
 
 html, body {
     max-width: 100vw;
+    margin: 0;
+    height: 0;
 }
 `;
