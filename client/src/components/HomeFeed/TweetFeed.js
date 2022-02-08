@@ -1,28 +1,31 @@
 import React, {useContext} from "react";
 import { TweetContext } from "../TweetContext";
 import styled from "styled-components";
-import TweetContent from "./TweetContent";
-import ActionBar from "./ActionBar";
+import TweetContent from "../TweetComponent/TweetContent"
+import ActionBar from "../TweetComponent/ActionBar";
+import { Link } from "react-router-dom";
 
-const Tweet = () =>{
+const TweetFeed = () =>{
     const{state:{tweetIds,tweetsById, hasLoaded}} = useContext(TweetContext);
 
-    // console.log("hasLoaded", hasLoaded)
-
     return (
-    <Wrapper>
+        <Wrapper>
+        <PageName>Home</PageName>
         {hasLoaded &&(<>
         {tweetIds.map(id=>{
-        const tweet = tweetsById[id];
-        console.log(tweetsById)
-        
+            const tweet = tweetsById[id];
         // content for tweets
+        const idUser = tweet.id;
         const displayName = tweet.author.displayName;
         const tweetMedia = tweet.media[0];
         const handle = tweet.author.handle; 
         const avatarSrc = tweet.author.avatarSrc;
         const status = tweet.status;
         const timestamp = tweet.timestamp;
+        
+        // retweet from doesn't work
+        // const retweetFrom = tweet.retweetFrom.display;
+        // console.log(tweet);
 
         // action bar
         const isLiked = tweet.isLiked;
@@ -32,7 +35,9 @@ const Tweet = () =>{
         
         return(
             <div>
+            <StyledLink key={idUser} to={`/tweet/${idUser}`}>
             <TweetContent
+            idUser = {idUser}
             displayName={displayName}
             handle= {handle}
             avatarSrc={avatarSrc}
@@ -46,12 +51,12 @@ const Tweet = () =>{
             numLikes={numLikes}
             numRetweets={numRetweets}
             />
+            </StyledLink>
             </div>
         )
         })}
     </>)}
     </Wrapper>
-    
     )
     
     };
@@ -64,5 +69,17 @@ const Tweet = () =>{
     margin-right: 20px;
     `;
     
+    const PageName = styled.div`
+    padding: 15px 0 15px 20px;
+    font-weight: bold;
+    color: black;
+    font-size: 22px;
+    border-bottom: 1px solid rgb(230, 236, 240);
+    `;
 
-export default Tweet;
+    const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: black;
+    `;
+
+export default TweetFeed;

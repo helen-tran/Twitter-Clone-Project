@@ -28,12 +28,13 @@ return(
 
 const Wrapper = styled.div`
 display: flex;
+margin-top: -10px;
 padding-left: 85px;
 border-bottom: 1px solid rgb(230, 236, 240);
 `
 const Content = styled.div`
 display: flex;
-margin: 10px 0 10px 0;
+margin-top: 5px;
 `;
 
 const Numbers = styled.p`

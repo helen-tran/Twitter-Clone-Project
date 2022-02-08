@@ -3,8 +3,8 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { FiBell, FiBookmark, FiHome, FiUser} from "react-icons/fi";
 import HoverPages from "./HoverPages";
-import { COLORS } from "./constants";
-import logo from "../assets/logo.svg"
+import { COLORS } from "../constants";
+import logo from "./assets/logo.svg"
 
 const Sidebar = ()=>{
 const styleIcon = {marginRight: "15px"}
@@ -24,7 +24,7 @@ return (
             
             <LiLink>
                 <HoverPages>
-                <PageLink to="/:profileId">
+                <PageLink to="/profile">
                     <FiUser style={styleIcon}/>    
                     Profile
                 </PageLink>

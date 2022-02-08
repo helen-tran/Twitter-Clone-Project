@@ -1,17 +1,31 @@
+import moment from "moment";
 import React from "react";
 import styled from "styled-components";
-import moment from "moment"
+import { Link } from "react-router-dom";
+import ActionBar from "../TweetComponent/ActionBar";
 
-const TweetContent = ({displayName,avatarSrc, handle,timestamp, tweetMedia, status}) => {
+const TweetsFromUser = ({info, avatarSrc, displayName, handle})=>{
+// console.log(info);
+
+// output own tweets
+const status = info.status;
+const timestamp = info.timestamp;
 const formattedDate = moment(timestamp).format('MMM Do');
+const idUser = info.id;
+const tweetMedia = info.media[0];
+
+// out retweeted 
 
 return (
+    <>
     <Wrapper>
     <Avatar src={avatarSrc} />
     <WrapperContent>
 
         <Header>
+        <StyledLink key={idUser} to={`/${idUser}`}>
         <DisplayName>{displayName}</DisplayName>
+        </StyledLink>
         <Username>@{handle}</Username>
         <Timestamp>{formattedDate}</Timestamp>
         </Header>
@@ -25,6 +39,8 @@ return (
         </Content>
     </WrapperContent>
     </Wrapper>
+    <ActionBar/>
+    </>
 );
 };
 
@@ -83,7 +99,14 @@ font-size: 15px;
 const Media = styled.img`   
 width: 95%;
 margin-top: 25px;
+margin-bottom: 10px;
 border-radius: 10px;
 `;
 
-export default TweetContent;
+const StyledLink = styled(Link)`
+text-decoration: none;
+color: black;
+`;
+
+
+export default TweetsFromUser;

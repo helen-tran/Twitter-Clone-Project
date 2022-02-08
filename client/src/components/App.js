@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import HomeFeed from "./HomeFeed";
 import TweetDetails from "./TweetDetails"
-import Profile from "./Profile";
+import ProfileDetail from "./ProfileDetail";
 import Sidebar from "./Sidebar";
 
 function App() {
@@ -20,7 +20,8 @@ function App() {
           <Route path="/notifications" />
           <Route path="/bookmarks" />
           <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
-          <Route path="/:profileId" element={<Profile/>} />
+          <Route path="/profile"/>
+          <Route path="/:profileId" element={<ProfileDetail/>} />
         </Routes>
     </Wrapper>
     </Router>

@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
-import { TweetContext } from "./TweetContext";
-import Tweet from "./Tweet";
+import { TweetContext } from "../TweetContext";
+import TweetFeed from "./TweetFeed";
 
 const HomeFeed = () =>{
 const {
@@ -22,7 +22,6 @@ useEffect(()=>{
         return res.json()
     })
     .then(data =>{
-        console.log(state.hasLoaded);
         receiveTweetInfoFromServer(data);
     })
 .then(()=>{
@@ -33,9 +32,10 @@ useEffect(()=>{
 
 return (
     <div> 
-    <Tweet />
+    <TweetFeed />
     </div>
 );
+
 }
 
 export default HomeFeed;
