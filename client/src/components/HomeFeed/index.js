@@ -1,6 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import { TweetContext } from "../TweetContext";
 import TweetFeed from "./TweetFeed";
+import PostTweet from "./PostTweet";
 
 const HomeFeed = () =>{
 const {
@@ -24,9 +25,9 @@ useEffect(()=>{
     .then(data =>{
         receiveTweetInfoFromServer(data);
     })
-.then(()=>{
-    loadedState();
-})
+    .then(()=>{
+        loadedState();
+    })
 
     },[]);
 

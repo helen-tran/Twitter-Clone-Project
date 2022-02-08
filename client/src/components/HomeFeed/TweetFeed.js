@@ -4,14 +4,20 @@ import styled from "styled-components";
 import TweetContent from "../TweetComponent/TweetContent"
 import ActionBar from "../TweetComponent/ActionBar";
 import { Link } from "react-router-dom";
-
+import PostTweet from "./PostTweet";
+import { CurrentUserContext } from "../CurrentUserContext";
 const TweetFeed = () =>{
     const{state:{tweetIds,tweetsById, hasLoaded}} = useContext(TweetContext);
-
+    const{status} = useContext(CurrentUserContext);
+    
+    console.log("status",status);
     return (
         <Wrapper>
         <PageName>Home</PageName>
-        {hasLoaded &&(<>
+        
+        {status === "idle" && hasLoaded &&(<>
+        <PostTweet/>
+        
         {tweetIds.map(id=>{
             const tweet = tweetsById[id];
         // content for tweets

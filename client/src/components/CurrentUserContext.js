@@ -5,7 +5,8 @@ export const CurrentUserContext = createContext(null);
 export const CurrentUserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = React.useState(null);
     const [status, setStatus] = React.useState("loading");
-    
+    const [profileInfoFromServer, setProfileInfoFromServer] = React.useState(null);
+
 useEffect(()=>{
 fetch('/api/me/profile',{
     headers:{
@@ -18,6 +19,7 @@ fetch('/api/me/profile',{
 .then(data =>{
     setStatus("idle");
     setCurrentUser(data.profile.handle);
+    setProfileInfoFromServer(data);
 })
 },[]);
 
@@ -26,7 +28,7 @@ fetch('/api/me/profile',{
     // Also, set `status` to `idle`
 
 return (
-<CurrentUserContext.Provider value={{ currentUser, status }}>
+<CurrentUserContext.Provider value={{ currentUser, status, profileInfoFromServer }}>
         {children}
 </CurrentUserContext.Provider>
     );
