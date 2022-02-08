@@ -31,9 +31,6 @@ height: 40px;
 font-size: 20px;
 margin: 5px 0 5px 0;
 
-/* &.active {
-    color: ${COLORS.primary};
-} */
 `
 
 export default HoverPages;

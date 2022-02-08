@@ -8,7 +8,6 @@ const PostTweet = ()=>{
 
     const [text, setText] = useState("");
     const [characterRemain, setCharacterRemain] = useState(280);
-    const [disableButton, setDisableButton] = useState(true);
 
     const profile = profileInfoFromServer.profile;
     const avatarSrc = profile.avatarSrc;
@@ -19,8 +18,6 @@ const PostTweet = ()=>{
         setText(input);
         setCharacterRemain(280 - (input.length));
     }
-
-console.log(characterRemain)
 
 return(
 
@@ -40,7 +37,6 @@ return(
             <CharacterCount>{characterRemain}</CharacterCount>
             <PostButton
             type="submit"
-            // disabled={!text}
             disabled= {text.length < 1 || characterRemain < 0}
             >Meow</PostButton>
         </SubmitWrapper>

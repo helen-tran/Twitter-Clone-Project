@@ -27,6 +27,11 @@ const numFollowers = info.author.numFollowers;
 const numFollowing = info.author.numFollowing;
 const url = info.author.url;
 
+// Tweets From user
+const numLikes = info.numLikes;
+const isLiked = info.isLiked;
+const numRetweets = info.numRetweets;
+
     return (
         <>
         {hasLoaded &&(
@@ -51,6 +56,9 @@ const url = info.author.url;
             avatarSrc={avatarSrc}
             displayName={displayName}
             handle={handle}
+            numLikes={numLikes}
+            isLiked={isLiked}
+            numRetweets={numRetweets}
             />
         </Wrapper>
         )}</>

@@ -17,7 +17,6 @@ const TweetFeed = () =>{
         
         {status === "idle" && hasLoaded &&(<>
         <PostTweet/>
-        
         {tweetIds.map(id=>{
             const tweet = tweetsById[id];
         // content for tweets
@@ -51,13 +50,13 @@ const TweetFeed = () =>{
             tweetMedia={tweetMedia}
             status={status}
             />
+            </StyledLink>
             <ActionBar
             isLiked={isLiked}
             isRetweeted={isRetweeted}
             numLikes={numLikes}
             numRetweets={numRetweets}
             />
-            </StyledLink>
             </div>
         )
         })}

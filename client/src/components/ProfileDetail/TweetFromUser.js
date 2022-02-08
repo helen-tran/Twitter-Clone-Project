@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ActionBar from "../TweetComponent/ActionBar";
 
-const TweetsFromUser = ({info, avatarSrc, displayName, handle})=>{
+const TweetsFromUser = ({info, avatarSrc, displayName, handle, numLikes, isLiked, numRetweets})=>{
 // console.log(info);
 
 // output own tweets
@@ -39,7 +39,11 @@ return (
         </Content>
     </WrapperContent>
     </Wrapper>
-    <ActionBar/>
+    <ActionBar
+    numLikes={numLikes}
+    isLiked={isLiked}
+    numRetweets={numRetweets}
+    />
     </>
 );
 };
@@ -55,7 +59,6 @@ width: 48px;
 height: 48px;
 border-radius: 50%;
 `;
-
 
 const WrapperContent = styled.div`
 padding: 0px 16px;
