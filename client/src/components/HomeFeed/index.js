@@ -1,14 +1,18 @@
-import React, {useContext, useEffect} from "react";
-import { TweetContext } from "../TweetContext";
+import React, {useContext, useEffect, useState} from "react";
+import { TweetContext } from "../Context/TweetContext";
 import TweetFeed from "./TweetFeed";
-import PostTweet from "./PostTweet";
+import ErrorPage from "../ErrorPage";
+import CircularLoading from "../CircularLoading";
+
+
 
 const HomeFeed = () =>{
 const {
-    state,
+    state:{hasLoaded},
     actions: {receiveTweetInfoFromServer, loadingState, loadedState}
 }= useContext(TweetContext)
 
+const [error, setError] = useState(null);
 
 // fetching data for the feed
 useEffect(()=>{
@@ -20,10 +24,16 @@ useEffect(()=>{
         }
     })
     .then(res =>{
+        if (!res.ok){
+            setError(error.message);
+        }
         return res.json()
     })
     .then(data =>{
         receiveTweetInfoFromServer(data);
+    })
+    .catch(error =>{
+    setError(error.message)
     })
     .then(()=>{
         loadedState();
@@ -31,12 +41,19 @@ useEffect(()=>{
 
     },[]);
 
+if (!receiveTweetInfoFromServer){
+    return <div></div>
+}
+
 return (
     <div> 
-    <TweetFeed />
+    {error && <ErrorPage/>}
+    {hasLoaded ? (
+    <TweetFeed />) :(<CircularLoading/>)
+}
     </div>
 );
-
 }
+
 
 export default HomeFeed;

@@ -1,22 +1,26 @@
 import React, {useContext} from "react";
-import { TweetContext } from "../TweetContext";
+import { TweetContext } from "../Context/TweetContext";
 import styled from "styled-components";
 import TweetContent from "../TweetComponent/TweetContent"
 import ActionBar from "../TweetComponent/ActionBar";
 import { Link } from "react-router-dom";
 import PostTweet from "./PostTweet";
-import { CurrentUserContext } from "../CurrentUserContext";
+import { CurrentUserContext } from "../Context/CurrentUserContext";
+import CircularLoading from "../CircularLoading";
+
 const TweetFeed = () =>{
     const{state:{tweetIds,tweetsById, hasLoaded}} = useContext(TweetContext);
     const{status} = useContext(CurrentUserContext);
     
-    console.log("status",status);
+
+
     return (
         <Wrapper>
         <PageName>Home</PageName>
         
-        {status === "idle" && hasLoaded &&(<>
-        <PostTweet/>
+        {status === "idle"?(
+        <PostTweet/>): (<CircularLoading/>)}
+
         {tweetIds.map(id=>{
             const tweet = tweetsById[id];
         // content for tweets
@@ -28,9 +32,7 @@ const TweetFeed = () =>{
         const status = tweet.status;
         const timestamp = tweet.timestamp;
         
-        // retweet from doesn't work
-        // const retweetFrom = tweet.retweetFrom.display;
-        // console.log(tweet);
+        const retweetFrom = tweet.retweetFrom;
 
         // action bar
         const isLiked = tweet.isLiked;
@@ -39,8 +41,12 @@ const TweetFeed = () =>{
         const numRetweets = tweet.numRetweets;
         
         return(
+            <>
+            {hasLoaded ? (
             <div>
-            <StyledLink key={idUser} to={`/tweet/${idUser}`}>
+            <StyledLink key={idUser}
+            to={`/tweet/${idUser}`}
+            >
             <TweetContent
             idUser = {idUser}
             displayName={displayName}
@@ -49,6 +55,7 @@ const TweetFeed = () =>{
             timestamp={timestamp}
             tweetMedia={tweetMedia}
             status={status}
+            retweetFrom={retweetFrom}
             />
             </StyledLink>
             <ActionBar
@@ -58,9 +65,10 @@ const TweetFeed = () =>{
             numRetweets={numRetweets}
             />
             </div>
-        )
-        })}
-    </>)}
+        ):(<CircularLoading/>)
+        }</>
+        )}
+    )}
     </Wrapper>
     )
     
@@ -85,6 +93,11 @@ const TweetFeed = () =>{
     const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
+
+    &:active{
+        border: 1px solid blue; 
+    }
     `;
+
 
 export default TweetFeed;

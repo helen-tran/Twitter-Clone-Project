@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FiHeart, FiShare, FiRepeat, FiMessageCircle} from "react-icons/fi";
 import Action from "./Action";
 import PoppingCircle from "./PoppingCircle";
-import { TweetContext } from "../TweetContext";
+import { TweetContext } from "../Context/TweetContext";
 
 
 const ActionBar = ({isLiked, numLikes, numRetweets})=>{

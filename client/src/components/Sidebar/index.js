@@ -54,7 +54,7 @@ return (
 )
 }
 const Navigation = styled.nav`
-margin-right: 20px;
+margin-right: 50px;
 `
 const UlLink = styled.ul`
 text-decoration: none;

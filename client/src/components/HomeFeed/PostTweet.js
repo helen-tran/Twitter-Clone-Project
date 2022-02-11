@@ -1,14 +1,16 @@
 import React, {useContext, useState} from "react";
 import styled from "styled-components";
-import {CurrentUserContext} from "../CurrentUserContext"
+import {CurrentUserContext} from "../Context/CurrentUserContext"
 import { COLORS } from "../constants";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const PostTweet = ()=>{
-    const{profileInfoFromServer} = useContext(CurrentUserContext);
+    const{profileInfoFromServer, status} = useContext(CurrentUserContext);
 
     const [text, setText] = useState("");
     const [characterRemain, setCharacterRemain] = useState(280);
-
+    const [userTweetInput, setUserTweetInput] = React.useState("");
+    const [isFetching, setIsFetching] = React.useState(false);
     const profile = profileInfoFromServer.profile;
     const avatarSrc = profile.avatarSrc;
 
@@ -19,6 +21,32 @@ const PostTweet = ()=>{
         setCharacterRemain(280 - (input.length));
     }
 
+    if (status === "loading"){
+        return(
+            <Container>
+                <CircularProgress/>
+            </Container>
+        )
+    }
+
+    // const postingTweet =() =>{
+    //     const requestOptions = {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json" },
+    //         body: JSON.stringify({ status: text }),
+    //         };
+    
+    // setIsFetching(true);
+    // fetch("api/tweet", requestOptions)
+    // .then((_res) => {
+    //     return postingTweet();
+    // })
+    // .then(() => {
+    //     setIsFetching(false);
+    //     setUserTweetInput("");
+    // })
+    // }
 return(
 
     <Wrapper>
@@ -37,7 +65,9 @@ return(
             <CharacterCount>{characterRemain}</CharacterCount>
             <PostButton
             type="submit"
+            value = {text}
             disabled= {text.length < 1 || characterRemain < 0}
+            // onClick={postingTweet}
             >Meow</PostButton>
         </SubmitWrapper>
     </Wrapper>
@@ -100,4 +130,11 @@ display: flex;
 align-items: center;
 float: right;
 `;
+
+const Container = styled.div`
+height: 100vh;
+display: flex;
+align-items:center;
+justify-content:center;
+`
 export default PostTweet;

@@ -7,6 +7,8 @@ import HomeFeed from "./HomeFeed";
 import TweetDetails from "./TweetDetails"
 import ProfileDetail from "./ProfileDetail";
 import Sidebar from "./Sidebar";
+import ErrorPage from "./ErrorPage"
+import Profile from "./Profile";
 
 function App() {
   return (
@@ -18,10 +20,11 @@ function App() {
         <Routes>
           <Route path="/" exact element={<HomeFeed/>} />
           <Route path="/notifications" />
+          <Route path="/error-page" element={<ErrorPage/>}/>
           <Route path="/bookmarks" />
           <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
-          <Route path="/profile"/>
-          <Route path="/:profileId" element={<ProfileDetail/>} />
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/:handle" element={<ProfileDetail/>} />
         </Routes>
     </Wrapper>
     </Router>

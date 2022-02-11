@@ -1,32 +1,37 @@
 import React, {useContext} from "react";
-import { TweetContext } from "../TweetContext";
+import { TweetContext } from "../Context/TweetContext";
 import styled from "styled-components";
 import moment from "moment"
 import {Link} from 'react-router-dom';
 import {FiRepeat} from "react-icons/fi";
 
 
-const TweetContent = ({displayName,avatarSrc, handle,timestamp, tweetMedia, status, idUser}) => {
+const TweetContent = ({displayName,avatarSrc, handle,timestamp, tweetMedia, status, idUser, retweetFrom}) => {
 
-const{state:{hasLoaded}} = useContext(TweetContext);
 const formattedDate = moment(timestamp).format('MMM Do');
-const styleIcon = {color: "#657786"}
+const styleIcon = {color: "#657786", marginRight:"10px"}
+
+const targetDisplayName = (e)=>{
+e.target.style.color = "red";
+}
 
 return (
 <>
-    {/* {retweetFrom &&(
+    {retweetFrom &&(
     <RetweetFrom>
     <FiRepeat style={styleIcon}/>
-    {retweetFrom}
+    {retweetFrom.displayName} Remeowed
     </RetweetFrom>
-    )} */}
+    )}
 
     <Wrapper>
     <Avatar src={avatarSrc} />
     <WrapperContent>
 
         <Header>
-        <StyledLink key={idUser} to={`/${idUser}`}>
+        <StyledLink key={idUser}
+        to={`/${handle}`}
+        OnMouseOver={targetDisplayName}>
         <DisplayName>{displayName}</DisplayName>
         </StyledLink>
         <Username>@{handle}</Username>
@@ -49,7 +54,7 @@ return (
 const Wrapper = styled.div`
 display: flex;
 margin-left: 20px;
-padding-top:20px;
+padding-top: 15px;
 `;
 
 const Avatar = styled.img`
@@ -66,6 +71,9 @@ padding: 0px 16px;
 const DisplayName = styled.div`
 font-size: 15px;
 font-weight: bold;
+&:hover {
+    text-decoration:underline;
+}
 `;
 
 const Username = styled.div`
@@ -84,7 +92,6 @@ padding-left: 8px;
 const Header = styled.div`
 display:flex;
 flex-direction: row;
-align-content: center;
 width: 100%;
 `
 
@@ -97,6 +104,7 @@ const Status = styled.p`
 margin-top: 5px;
 margin-bottom: -8px;
 font-size: 15px;
+text-ali
 `
 const Media = styled.img`   
 width: 95%;
@@ -112,8 +120,10 @@ color: black;
 
 const RetweetFrom = styled.div`
 display: flex;
-margin:0;
-margin-left: 20px;
+margin-top: 15px;
+padding-left: 60px;
+color: rgb(101, 119, 134);
+font-size: 13px;
 `;
 
 export default TweetContent;

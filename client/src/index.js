@@ -1,17 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App'
-import {CurrentUserProvider} from './components/CurrentUserContext';
-import {TweetProvider} from './components/TweetContext'
+import { CurrentUserProvider } from './components/Context/CurrentUserContext';
+import {TweetProvider}from './components/Context/TweetContext';
+import {ProfileDetailProvider} from './components/Context/ProfileDetailContext'
 
 
 ReactDOM.render(
   <React.StrictMode>
+    <ProfileDetailProvider>
     <TweetProvider>
     <CurrentUserProvider>
-    <App />
+      <App />
     </CurrentUserProvider>
     </TweetProvider>
+    </ProfileDetailProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
