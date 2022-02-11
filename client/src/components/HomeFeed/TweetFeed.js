@@ -8,7 +8,7 @@ import PostTweet from "./PostTweet";
 import { CurrentUserContext } from "../Context/CurrentUserContext";
 import CircularLoading from "../CircularLoading";
 
-const TweetFeed = () =>{
+const TweetFeed = ({fetchHomeTweets}) =>{
     const{state:{tweetIds,tweetsById, hasLoaded}} = useContext(TweetContext);
     const{status} = useContext(CurrentUserContext);
     
@@ -19,7 +19,7 @@ const TweetFeed = () =>{
         <PageName>Home</PageName>
         
         {status === "idle"?(
-        <PostTweet/>): (<CircularLoading/>)}
+        <PostTweet fetchHomeTweets={fetchHomeTweets}/>): (<CircularLoading/>)}
 
         {tweetIds.map(id=>{
             const tweet = tweetsById[id];

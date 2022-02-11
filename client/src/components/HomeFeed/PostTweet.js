@@ -2,15 +2,13 @@ import React, {useContext, useState} from "react";
 import styled from "styled-components";
 import {CurrentUserContext} from "../Context/CurrentUserContext"
 import { COLORS } from "../constants";
-import CircularProgress from '@mui/material/CircularProgress';
-
-const PostTweet = ()=>{
+import { CircularProgress } from "@mui/material";
+const PostTweet = ({fetchHomeTweets})=>{
     const{profileInfoFromServer, status} = useContext(CurrentUserContext);
 
     const [text, setText] = useState("");
     const [characterRemain, setCharacterRemain] = useState(280);
-    const [userTweetInput, setUserTweetInput] = React.useState("");
-    const [isFetching, setIsFetching] = React.useState(false);
+    const [fetching, setFetching] = React.useState(false);
     const profile = profileInfoFromServer.profile;
     const avatarSrc = profile.avatarSrc;
 
@@ -29,24 +27,27 @@ const PostTweet = ()=>{
         )
     }
 
-    // const postingTweet =() =>{
-    //     const requestOptions = {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json" },
-    //         body: JSON.stringify({ status: text }),
-    //         };
+    const postingTweet =() =>{
+        const requestOptions = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json" },
+        body: JSON.stringify({ status: text }),
+        };
     
-    // setIsFetching(true);
-    // fetch("api/tweet", requestOptions)
-    // .then((_res) => {
-    //     return postingTweet();
-    // })
-    // .then(() => {
-    //     setIsFetching(false);
-    //     setUserTweetInput("");
-    // })
-    // }
+        setFetching(true);
+        fetch("api/tweet", requestOptions)
+        .then((_res) => {
+            return fetchHomeTweets();
+        })            
+
+        .then(() => {
+            setFetching(false);
+            setText("");
+        })
+    }
+
+    const progressStyle = {color: "grey", }
 return(
 
     <Wrapper>
@@ -67,8 +68,13 @@ return(
             type="submit"
             value = {text}
             disabled= {text.length < 1 || characterRemain < 0}
-            // onClick={postingTweet}
-            >Meow</PostButton>
+            onClick={postingTweet}
+            style={{backgroundColor: fetching? "#C9B2FF" : null }}
+            >
+            {fetching ? 
+            (<CircularProgress style={progressStyle}/>):
+            (<p>Meow</p>)}
+            </PostButton>
         </SubmitWrapper>
     </Wrapper>
     )
@@ -116,7 +122,7 @@ border: none;
 border-radius: 100px;
 
 &:disabled{
-    opacity: 0.3;
+    background: #C9B2FF;
 }
 `;
 
@@ -137,4 +143,5 @@ display: flex;
 align-items:center;
 justify-content:center;
 `
+
 export default PostTweet;

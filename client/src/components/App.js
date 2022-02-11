@@ -23,7 +23,7 @@ function App() {
           <Route path="/error-page" element={<ErrorPage/>}/>
           <Route path="/bookmarks" />
           <Route path="/tweet/:tweetId" element={<TweetDetails/>}/>
-          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/treasurymog" element={<Profile/>}/>
           <Route path="/:handle" element={<ProfileDetail/>} />
         </Routes>
     </Wrapper>

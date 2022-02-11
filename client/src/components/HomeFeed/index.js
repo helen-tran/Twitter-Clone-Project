@@ -9,16 +9,14 @@ import CircularLoading from "../CircularLoading";
 const HomeFeed = () =>{
 const {
     state:{hasLoaded},
-    actions: {receiveTweetInfoFromServer, loadingState, loadedState}
+    actions: {receiveTweetInfoFromServer}
 }= useContext(TweetContext)
 
 const [error, setError] = useState(null);
 
 // fetching data for the feed
-useEffect(()=>{
-    loadingState();
-
-    fetch('/api/me/home-feed',{
+const fetchHomeTweets =()=>{
+return fetch('/api/me/home-feed',{
         headers:{
             'Accept': 'application.json'
         }
@@ -32,8 +30,11 @@ useEffect(()=>{
     .catch(error =>{
     setError(error.message)
     })
+}
 
-    },[]);
+useEffect(()=>{
+fetchHomeTweets()
+},[])
 
 if (!receiveTweetInfoFromServer){
     return <div></div>
@@ -43,7 +44,7 @@ return (
     <div> 
     {error && <ErrorPage/>}
     {hasLoaded ? (
-    <TweetFeed />) :(<CircularLoading/>)
+    <TweetFeed fetchHomeTweets={fetchHomeTweets}/>) :(<CircularLoading/>)
 }
     </div>
 );

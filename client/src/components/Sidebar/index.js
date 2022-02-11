@@ -24,7 +24,7 @@ return (
             
             <LiLink>
                 <HoverPages>
-                <PageLink to="/profile">
+                <PageLink to="/treasurymog">
                     <FiUser style={styleIcon}/>    
                     Profile
                 </PageLink>

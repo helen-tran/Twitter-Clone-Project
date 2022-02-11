@@ -19,16 +19,6 @@ function reducer(state, action){
             tweetsById: action.tweetsById,
         }
     }
-    case "loading":{
-    return{...state,
-        hasLoaded:false
-    }
-}
-case "loaded":{
-    return{...state,
-        hasLoaded:true
-    }
-}
 }}
 
 export const TweetProvider = ({children}) =>{
@@ -41,21 +31,11 @@ export const TweetProvider = ({children}) =>{
         });
     };
     
-    const loadingState = ()=>{
-        dispatch({
-            type:"loading",
-        })
-    }
-    const loadedState = ()=>{
-        dispatch({
-            type:"loaded",
-        })
-    }
     return(
         <TweetContext.Provider
         value={{
             state,
-            actions: {receiveTweetInfoFromServer, loadingState, loadedState},
+            actions: {receiveTweetInfoFromServer},
         }}
         >
             {children}

@@ -4,7 +4,9 @@ import ProfileHeader from "./ProfileDetail/ProfileHeader";
 import MenuBar from "./ProfileDetail/MenuBar";
 import TweetsFromUser from "./ProfileDetail/TweetFromUser";
 import styled from "styled-components";
-
+import CircularLoading from "./CircularLoading";
+import ErrorPage from "./ErrorPage";
+import { useParams } from "react-router-dom";
 
 const Profile = () =>{
 const {profileInfoFromServer, status} = useContext(CurrentUserContext);
@@ -27,7 +29,7 @@ const [error, setError] = useState(null);
 const [profileTweetHasLoaded, setProfileTweetHasLoaded] = React.useState(false);
 const [profileTweetFromServer, setProfileTweetFromServer] = React.useState(null);
 useEffect(()=>{
-    fetch(`/api/${handle}/feed`,{
+    fetch(`/api/treasurymog/feed`,{
         headers:{
             'Accept': 'application.json'
         }
@@ -47,13 +49,20 @@ useEffect(()=>{
         })
 },[]);
 
-const tweetIds = profileTweetFromServer.tweetIds;
-const tweetById = profileTweetFromServer.tweetsById;
+// Setting This so it doesn't break my
+        if (!profileTweetHasLoaded || !profileTweetFromServer){
+            return <CircularLoading/>
+        }
+
+
+    const tweetIds = profileTweetFromServer.tweetIds;
+    const tweetById = profileTweetFromServer.tweetsById;
 
 return(<>
-{!profileTweetFromServer ?(<div></div>)
+{!profileTweetFromServer && status==="loading" ?(<div></div>)
 :(
 <Wrapper>
+    {error && <ErrorPage/>}
     <ProfileHeader
             avatarSrc={avatarSrc}
             bannerSrc={bannerSrc}
@@ -69,12 +78,38 @@ return(<>
             />
             <MenuBar/>
             
-            <TweetsFromUser
-            // avatarSrc={avatarSrc}
-            // displayName={displayName}
-            // handle={handle}
-            // numLikes={numLikes}
-            />
+            {tweetIds.map(id=>{
+                const tweet= tweetById[id];
+                console.log(tweet)
+                
+                const avatarSrc = tweet.author.avatarSrc;
+                const idUser = tweet.id;
+                const displayName = tweet.author.displayName;
+                const handle = tweet.author.handle;
+                const numLikes=tweet.numLikes;
+                const isLiked= tweet.isLiked;
+                const numRetweets=tweet.numRetweets;
+                const tweetMedia = tweet.media[0];
+                const status = tweet.status;
+                const timestamp = tweet.timestamp;
+                const retweetFrom = tweet.retweetFrom;
+                return(
+                    <TweetsFromUser
+                    avatarSrc={avatarSrc}
+                    idUser={idUser}
+                    displayName={displayName}
+                    handle={handle}
+                    numLikes={numLikes}
+                    isLiked={isLiked}
+                    numRetweets={numRetweets}
+                    tweetMedia={tweetMedia}
+                    status={status}
+                    timestamp={timestamp}
+                    retweetFrom={retweetFrom}
+                    />
+                )
+            })}
+
 </Wrapper>
 )}</>
 )
@@ -87,4 +122,4 @@ const Wrapper = styled.div`
     margin-right: 20px;
 `;
 
-export default Profile
+export default Profile;
