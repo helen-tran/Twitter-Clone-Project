@@ -104,7 +104,7 @@ const Status = styled.p`
 margin-top: 5px;
 margin-bottom: -8px;
 font-size: 15px;
-text-ali
+text-align:left;
 `
 const Media = styled.img`   
 width: 95%;

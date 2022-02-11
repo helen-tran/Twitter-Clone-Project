@@ -24,9 +24,6 @@ useEffect(()=>{
         }
     })
     .then(res =>{
-        if (!res.ok){
-            setError(error.message);
-        }
         return res.json()
     })
     .then(data =>{
@@ -34,9 +31,6 @@ useEffect(()=>{
     })
     .catch(error =>{
     setError(error.message)
-    })
-    .then(()=>{
-        loadedState();
     })
 
     },[]);

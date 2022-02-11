@@ -44,6 +44,7 @@ const TweetFeed = () =>{
             <>
             {hasLoaded ? (
             <div>
+            <TweetContentButton>
             <StyledLink key={idUser}
             to={`/tweet/${idUser}`}
             >
@@ -64,6 +65,7 @@ const TweetFeed = () =>{
             numLikes={numLikes}
             numRetweets={numRetweets}
             />
+            </TweetContentButton>
             </div>
         ):(<CircularLoading/>)
         }</>
@@ -93,9 +95,14 @@ const TweetFeed = () =>{
     const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
-
+`;
+const TweetContentButton=styled.button`
+width: 100%;
+height: 100%;
+border: none;
+background-color: transparent;
     &:active{
-        border: 1px solid blue; 
+        border: 3px solid #4BA3FB; 
     }
     `;
 

@@ -139,8 +139,6 @@ const ProfileDetail = ()=>{
 }
 
         const Wrapper = styled.div`
-        display: flex;
-        align-items:center;
         width: 1000px;
         border-left: 1px solid rgb(230, 236, 240);
         border-right: 1px solid rgb(230, 236, 240);
