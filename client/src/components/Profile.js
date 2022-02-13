@@ -6,10 +6,9 @@ import TweetsFromUser from "./ProfileDetail/TweetFromUser";
 import styled from "styled-components";
 import CircularLoading from "./CircularLoading";
 import ErrorPage from "./ErrorPage";
-import { useParams } from "react-router-dom";
 
 const Profile = () =>{
-const {profileInfoFromServer, status} = useContext(CurrentUserContext);
+const {profileInfoFromServer} = useContext(CurrentUserContext);
 
 const profile = profileInfoFromServer.profile;
 const avatarSrc = profile.avatarSrc;
@@ -23,7 +22,6 @@ const joined = profile.joined;
 const location = profile.location;
 const numFollowers = profile.numFollowers;
 const numFollowing = profile.numFollowing;
-const numLikes = profile.numLikes;
 
 const [error, setError] = useState(null);
 const [profileTweetHasLoaded, setProfileTweetHasLoaded] = React.useState(false);
@@ -78,7 +76,6 @@ return(
             
             {tweetIds.map(id=>{
                 const tweet= tweetById[id];
-                console.log(tweet)
                 
                 const avatarSrc = tweet.author.avatarSrc;
                 const idUser = tweet.id;

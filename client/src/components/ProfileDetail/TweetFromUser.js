@@ -1,19 +1,16 @@
 import moment from "moment";
-import React,{useContext} from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ActionBar from "../TweetComponent/ActionBar";
 import {FiRepeat} from "react-icons/fi";
-import { TweetContext } from "../Context/TweetContext";
 
 
 const TweetsFromUser = ({avatarSrc, displayName, handle, numLikes, isLiked, numRetweets,timestamp,idUser,status, tweetMedia, retweetFrom})=>{
-const {state:{tweetsById}}=useContext(TweetContext);
 
 // output own tweets
 
 const formattedDate = moment(timestamp).format('MMM Do');
-
 const styleIcon = {color: "#657786", marginRight:"10px"}
 
 return (
@@ -116,14 +113,6 @@ border-radius: 10px;
 const StyledLink = styled(Link)`
 text-decoration: none;
 color: black;
-`;
-
-const RetweetWrapper = styled.div`
-display: flex;
-padding-left: 40px;
-padding-bottom: 20px;
-color: rgb(101, 119, 134);
-font-size: 13px;
 `;
 
 const RetweetFrom = styled.div`

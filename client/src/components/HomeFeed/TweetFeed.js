@@ -3,7 +3,7 @@ import { TweetContext } from "../Context/TweetContext";
 import styled from "styled-components";
 import TweetContent from "../TweetComponent/TweetContent"
 import ActionBar from "../TweetComponent/ActionBar";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import PostTweet from "./PostTweet";
 import { CurrentUserContext } from "../Context/CurrentUserContext";
 import CircularLoading from "../CircularLoading";
@@ -11,40 +11,47 @@ import CircularLoading from "../CircularLoading";
 const TweetFeed = ({fetchHomeTweets}) =>{
     const{state:{tweetIds,tweetsById, hasLoaded}} = useContext(TweetContext);
     const{status} = useContext(CurrentUserContext);
+    const navigate = useNavigate()
+
     
-
-
     return (
         <Wrapper>
         <PageName>Home</PageName>
         
         {status === "idle"?(
-        <PostTweet fetchHomeTweets={fetchHomeTweets}/>): (<CircularLoading/>)}
+            <PostTweet fetchHomeTweets={fetchHomeTweets}/>): (<CircularLoading/>)}
 
         {tweetIds.map(id=>{
             const tweet = tweetsById[id];
-        // content for tweets
-        const idUser = tweet.id;
-        const displayName = tweet.author.displayName;
-        const tweetMedia = tweet.media[0];
-        const handle = tweet.author.handle; 
-        const avatarSrc = tweet.author.avatarSrc;
-        const status = tweet.status;
-        const timestamp = tweet.timestamp;
-        
-        const retweetFrom = tweet.retweetFrom;
-
-        // action bar
-        const isLiked = tweet.isLiked;
-        const isRetweeted = tweet.isRetweeted;
-        const numLikes = tweet.numLikes;
-        const numRetweets = tweet.numRetweets;
-        
-        return(
-            <>
-            {hasLoaded ? (
-            <div>
-            <TweetContentButton>
+            // content for tweets
+            const idUser = tweet.id;
+            const displayName = tweet.author.displayName;
+            const tweetMedia = tweet.media[0];
+            const handle = tweet.author.handle; 
+            const avatarSrc = tweet.author.avatarSrc;
+            const status = tweet.status;
+            const timestamp = tweet.timestamp;
+            
+            const retweetFrom = tweet.retweetFrom;
+            
+            // action bar
+            const isLiked = tweet.isLiked;
+            const isRetweeted = tweet.isRetweeted;
+            const numLikes = tweet.numLikes;
+            const numRetweets = tweet.numRetweets;
+            
+            
+            const handleEnter = (event)=>{
+                    if (event.key === "Enter") {
+                        navigate(`/tweet/${idUser}`)
+                    }}
+                
+            return(
+                <div aria-label="View Tweet Details"
+                tabIndex="0"
+                OnKeyDown={handleEnter}
+                >
+            {hasLoaded ? (<>
             <StyledLink key={idUser}
             to={`/tweet/${idUser}`}
             >
@@ -65,10 +72,9 @@ const TweetFeed = ({fetchHomeTweets}) =>{
             numLikes={numLikes}
             numRetweets={numRetweets}
             />
-            </TweetContentButton>
-            </div>
+            </> 
         ):(<CircularLoading/>)
-        }</>
+        }</div>
         )}
     )}
     </Wrapper>

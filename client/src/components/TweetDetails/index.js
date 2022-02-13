@@ -6,7 +6,6 @@ import {FiArrowLeft} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import ErrorPage from "../ErrorPage"; 
-import { CircularProgress } from "@mui/material";
 import CircularLoading from "../CircularLoading";
 
 const TweetDetails = () =>{
