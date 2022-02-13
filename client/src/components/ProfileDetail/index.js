@@ -142,7 +142,7 @@ const ProfileDetail = ()=>{
         width: 1000px;
         border-left: 1px solid rgb(230, 236, 240);
         border-right: 1px solid rgb(230, 236, 240);
-        /* margin-right: 20px; */
+        margin-right: 20px;
     `;
 
 export default ProfileDetail;

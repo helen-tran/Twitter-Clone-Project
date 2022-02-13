@@ -50,7 +50,7 @@ useEffect(()=>{
 },[]);
 
 // Setting This so it doesn't break my
-        if (!profileTweetHasLoaded || !profileTweetFromServer){
+    if (!profileTweetHasLoaded || !profileTweetFromServer){
             return <CircularLoading/>
         }
 
@@ -58,9 +58,7 @@ useEffect(()=>{
     const tweetIds = profileTweetFromServer.tweetIds;
     const tweetById = profileTweetFromServer.tweetsById;
 
-return(<>
-{!profileTweetFromServer && status==="loading" ?(<div></div>)
-:(
+return(
 <Wrapper>
     {error && <ErrorPage/>}
     <ProfileHeader
@@ -110,10 +108,7 @@ return(<>
                 )
             })}
 
-</Wrapper>
-)}</>
-)
-}
+</Wrapper>)}
 
 const Wrapper = styled.div`
     width: 1000px;

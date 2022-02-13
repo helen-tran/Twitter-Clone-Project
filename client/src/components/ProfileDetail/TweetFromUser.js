@@ -129,7 +129,6 @@ font-size: 13px;
 const RetweetFrom = styled.div`
 display: flex;
 margin-top: 15px;
-margin-bottom: 10px;
 padding-left: 60px;
 color: rgb(101, 119, 134);
 font-size: 13px;

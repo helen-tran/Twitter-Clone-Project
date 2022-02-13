@@ -16,8 +16,8 @@ const PostTweet = ({fetchHomeTweets})=>{
     const handleChange = (e)=>{
         let input = e.target.value;
         setText(input);
-        setCharacterRemain(280 - (input.length));
-    }
+        setCharacterRemain(280 - (input.length))
+        }
 
     if (status === "loading"){
         return(
@@ -48,6 +48,16 @@ const PostTweet = ({fetchHomeTweets})=>{
     }
 
     const progressStyle = {color: "grey", }
+
+    const colorChange = ()=>{
+        if (characterRemain<= 55 && characterRemain >=0)
+        return {color: "#EFD24D"}
+        
+        else if (characterRemain<0)
+        return {color: 'red'}
+        
+    
+    }
 return(
 
     <Wrapper>
@@ -63,7 +73,9 @@ return(
         </ContentWrapper>
     
         <SubmitWrapper>
-            <CharacterCount>{characterRemain}</CharacterCount>
+            <CharacterCount
+            style={colorChange()}
+            >{characterRemain}</CharacterCount>
             <PostButton
             type="submit"
             value = {text}
