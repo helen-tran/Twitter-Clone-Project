@@ -40,4 +40,3 @@ From the home page, we can type a tweet out and there's a maximum character coun
 
 Once the tweet is posted, it appears on the home feed and shows up on the profile of the current user.
 ![image](Screenshots/PostingTweet.png)
-# Twitter-Clone-Project
