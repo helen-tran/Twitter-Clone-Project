@@ -37,5 +37,6 @@ For every tweet, we can like/unlike it.
 From the home page, we can type a tweet out and there's a maximum character count, if exceeded the button is disabled.
 ![image](ScreenShots/Posting%20Tweet%20-%20Counter.png)
 ![image](screenshots/Max%20Character%20Count.png)
+
 Once the tweet is posted, it appears on the home feed and shows up on the profile of the current user.
 ![image](screenshots/PostingTweet.png)
